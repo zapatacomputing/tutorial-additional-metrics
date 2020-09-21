@@ -1,0 +1,101 @@
+# Workflow API version
+apiVersion: io.orquestra.workflow/1.0.0
+
+# Prefix for workflow ID
+name: tutorial-3-modular
+
+# List components needed by workflow.
+imports:
+- name: sklearn-component
+  type: git
+  parameters:
+    repository: "git@github.com:zapatacomputing/tutorial-orquestra-sklearn.git"
+    branch: "master"
+- name: additional-metrics-component
+  type: git
+  parameters:
+    repository: "git@github.com:zapatacomputing/tutorial-additional-metrics.git"
+    branch: "master"
+
+steps:
+
+# This step runs the step that generates the dataset 
+- name: generate-data
+  config:
+    runtime:
+      type: python3
+      imports: [sklearn-component]
+      parameters:
+        file: sklearn-component/steps/tutorial_3_exercise_step.py
+        function: generate_data_step
+  inputs:
+    - dataset_name: "simple_dataset"
+      type: string
+  outputs:
+  - name: data
+    type: dataset_type
+
+# This step runs the step that preprocesses the data
+- name: preprocess-data
+  passed: [generate-data]
+  config:
+    runtime:
+      type: python3
+      imports: [sklearn-component]
+      parameters:
+        file: sklearn-component/steps/tutorial_3_exercise_step.py
+        function: preprocess_data_step
+  inputs:
+    - data: ((generate-data.data))
+      type: dataset_type
+  outputs:
+  - name: features
+    type: features_type
+  - name: labels
+    type: labels_type
+
+# This step runs the step that trains the model and makes the predictions
+- name: train-predict
+  passed: [preprocess-data]
+  config:
+    runtime:
+      type: python3
+      imports: [sklearn-component]
+      parameters:
+        file: sklearn-component/steps/tutorial_3_exercise_step.py
+        function: train_predict_step
+  inputs:
+    - model_name: "perceptron"
+      type: string
+    - features: ((preprocess-data.features))
+      type: features_type
+    - labels: ((preprocess-data.labels))
+      type: labels_type
+  outputs:
+  - name: predictions
+    type: predictions_type
+
+# This step runs the step that calculates the f1-score of the model
+- name: calculate-f1-score
+  passed: [train-predict]
+  config:
+    runtime:
+      type: python3
+      imports: [additional-metrics-component]
+      parameters:
+        file: additional-metrics-component/steps/f1_score_step.py
+        function: calculate_f1_score_step
+  inputs:
+    - predictions: ((train-predict.predictions))
+      type: predictions_type
+    - labels: ((preprocess-data.labels))
+      type: labels_type
+  outputs:
+  - name: f1_score
+    type: f1score_type
+types:
+ - dataset_type
+ - features_type
+ - labels_type
+ - predictions_type
+ - f1score_type
