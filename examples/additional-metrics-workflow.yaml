@@ -26,7 +26,7 @@ steps:
       type: python3
       imports: [sklearn-component]
       parameters:
-        file: sklearn-component/steps/tutorial_3_exercise_step.py
+        file: sklearn-component/steps/tutorial_3_exercise_steps.py
         function: generate_data_step
   inputs:
     - dataset_name: "simple_dataset"
@@ -43,7 +43,7 @@ steps:
       type: python3
       imports: [sklearn-component]
       parameters:
-        file: sklearn-component/steps/tutorial_3_exercise_step.py
+        file: sklearn-component/steps/tutorial_3_exercise_steps.py
         function: preprocess_data_step
   inputs:
     - data: ((generate-data.data))
@@ -62,7 +62,7 @@ steps:
       type: python3
       imports: [sklearn-component]
       parameters:
-        file: sklearn-component/steps/tutorial_3_exercise_step.py
+        file: sklearn-component/steps/tutorial_3_exercise_steps.py
         function: train_predict_step
   inputs:
     - model_name: "perceptron"
