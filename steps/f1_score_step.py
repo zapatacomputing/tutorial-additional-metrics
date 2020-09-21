@@ -1,5 +1,5 @@
-from additional-metrics.functions import calculate_f1_score
-from additional-metrics.utils import read_json, save_json
+from metrics.functions import calculate_f1_score
+from metrics.utils import read_json, save_json
 
 def calculate_f1_score_step(labels, predictions):
     lab = read_json(labels)['labels']
