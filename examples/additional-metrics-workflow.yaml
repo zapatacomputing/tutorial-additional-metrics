@@ -2,7 +2,7 @@
 apiVersion: io.orquestra.workflow/1.0.0
 
 # Prefix for workflow ID
-name: tutorial-3-modular
+name: additional-metrics
 
 # List components needed by workflow.
 imports:
