@@ -40,7 +40,7 @@ steps:
   passed: [generate-data]
   config:
     runtime:
-      type: python3
+      language: python3
       imports: [sklearn-component]
       parameters:
         file: sklearn-component/steps/ml_tutorial_3_exercise_steps.py
@@ -59,7 +59,7 @@ steps:
   passed: [preprocess-data]
   config:
     runtime:
-      type: python3
+      language: python3
       imports: [sklearn-component]
       parameters:
         file: sklearn-component/steps/ml_tutorial_3_exercise_steps.py
@@ -80,7 +80,7 @@ steps:
   passed: [train-predict]
   config:
     runtime:
-      type: python3
+      language: python3
       imports: [additional-metrics-component]
       parameters:
         file: additional-metrics-component/steps/f1_score_step.py
