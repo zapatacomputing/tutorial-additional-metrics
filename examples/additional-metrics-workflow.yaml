@@ -23,7 +23,7 @@ steps:
 - name: generate-data
   config:
     runtime:
-      type: python3
+      language: python3
       imports: [sklearn-component]
       parameters:
         file: sklearn-component/steps/tutorial_3_exercise_steps.py
