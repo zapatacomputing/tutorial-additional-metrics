@@ -83,7 +83,7 @@ steps:
       language: python3
       imports: [additional-metrics-component]
       parameters:
-        file: additional-metrics-component/f1_score_step.py
+        file: additional-metrics-component/f1_score.py
         function: calculate_f1_score_step
   inputs:
     - predictions: ((train-predict.predictions))

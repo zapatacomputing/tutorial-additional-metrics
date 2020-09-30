@@ -18,7 +18,7 @@ def save_json(result, filename) -> None:
     try:
         with open(filename,'w') as f:
             result["schema"] = "orquestra-v1-data"
-            f.write(json.dumps(result, indent=2, cls=NumpyArrayEncoder)) 
+            f.write(json.dumps(result, indent=2)) 
 
     except IOError:
         print(f'Error: Could not open {filename}')
