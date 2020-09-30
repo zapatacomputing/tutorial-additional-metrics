@@ -3,10 +3,12 @@ import json
 from json import JSONEncoder
 import numpy as np
 
+# This function calculates the F1-score
 def calculate_f1_score(predictions, labels):
     f1 = f1_score(predictions, labels)
     return f1
 
+# Serializes an object to json
 def save_json(result, filename) -> None:
     """
     Saves data as JSON.
@@ -23,6 +25,7 @@ def save_json(result, filename) -> None:
     except IOError:
         print(f'Error: Could not open {filename}')
 
+# Deserializes an object from json
 def read_json(filename) -> dict:
     """
     Loads data from JSON.
@@ -40,6 +43,7 @@ def read_json(filename) -> dict:
 
     return data
 
+# Step that calculates the F1 score and saves the ouput as json
 def calculate_f1_score_step(labels, predictions):
     lab = read_json(labels)['labels']
     pred = read_json(predictions)['predictions']
